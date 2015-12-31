@@ -1,0 +1,821 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SailorTravelLogModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="SailorTravelLogModelStoreContainer">
+          <EntitySet Name="Boat" EntityType="SailorTravelLogModel.Store.Boat" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="City" EntityType="SailorTravelLogModel.Store.City" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CloudConditions" EntityType="SailorTravelLogModel.Store.CloudConditions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Country" EntityType="SailorTravelLogModel.Store.Country" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Direction" EntityType="SailorTravelLogModel.Store.Direction" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Location" EntityType="SailorTravelLogModel.Store.Location" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Manufacturer" EntityType="SailorTravelLogModel.Store.Manufacturer" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SeaConditions" EntityType="SailorTravelLogModel.Store.SeaConditions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="State" EntityType="SailorTravelLogModel.Store.State" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Trip" EntityType="SailorTravelLogModel.Store.Trip" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TripLog" EntityType="SailorTravelLogModel.Store.TripLog" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Boat_Manufacturer" Association="SailorTravelLogModel.Store.FK_Boat_Manufacturer">
+            <End Role="Manufacturer" EntitySet="Manufacturer" />
+            <End Role="Boat" EntitySet="Boat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_State" Association="SailorTravelLogModel.Store.FK_City_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_City" Association="SailorTravelLogModel.Store.FK_Location_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_State_Country" Association="SailorTravelLogModel.Store.FK_State_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="State" EntitySet="State" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trip_Boat" Association="SailorTravelLogModel.Store.FK_Trip_Boat">
+            <End Role="Boat" EntitySet="Boat" />
+            <End Role="Trip" EntitySet="Trip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trip_LocationDeparture" Association="SailorTravelLogModel.Store.FK_Trip_LocationDeparture">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Trip" EntitySet="Trip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trip_LocationDestination" Association="SailorTravelLogModel.Store.FK_Trip_LocationDestination">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Trip" EntitySet="Trip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripLog_CloudConditions" Association="SailorTravelLogModel.Store.FK_TripLog_CloudConditions">
+            <End Role="CloudConditions" EntitySet="CloudConditions" />
+            <End Role="TripLog" EntitySet="TripLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripLog_Direction" Association="SailorTravelLogModel.Store.FK_TripLog_Direction">
+            <End Role="Direction" EntitySet="Direction" />
+            <End Role="TripLog" EntitySet="TripLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripLog_SeaConditions" Association="SailorTravelLogModel.Store.FK_TripLog_SeaConditions">
+            <End Role="SeaConditions" EntitySet="SeaConditions" />
+            <End Role="TripLog" EntitySet="TripLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripLog_Trip" Association="SailorTravelLogModel.Store.FK_TripLog_Trip">
+            <End Role="Trip" EntitySet="Trip" />
+            <End Role="TripLog" EntitySet="TripLog" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Boat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="ManufacturerId" Type="int" Nullable="false" />
+          <Property Name="Length" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="ModifiedDt" Type="datetime" Nullable="false" />
+          <Property Name="CreateDt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StateId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="CloudConditions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Direction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nchar" Nullable="false" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Latitude" Type="decimal" Nullable="false" Scale="7" />
+          <Property Name="Longitude" Type="decimal" Nullable="false" Scale="7" />
+          <Property Name="Street1" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Street2" Type="nvarchar" MaxLength="50" />
+          <Property Name="CityId" Type="int" Nullable="false" />
+          <Property Name="ZipCode" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="PhoneNbr" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="ModifiedDt" Type="datetime" Nullable="false" />
+          <Property Name="CreateDt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Manufacturer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SeaConditions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Trip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="BoatId" Type="int" Nullable="false" />
+          <Property Name="DepartureLocId" Type="int" Nullable="false" />
+          <Property Name="DepartureDt" Type="datetime" Nullable="false" />
+          <Property Name="DestinationLocId" Type="int" Nullable="false" />
+          <Property Name="ArrivalDt" Type="datetime" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="ModifiedDt" Type="datetime" Nullable="false" />
+          <Property Name="CreateDt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TripLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TripId" Type="int" Nullable="false" />
+          <Property Name="LogDt" Type="datetime" Nullable="false" />
+          <Property Name="Latitude" Type="decimal" Nullable="false" Scale="7" />
+          <Property Name="Longitude" Type="decimal" Nullable="false" Scale="7" />
+          <Property Name="BoatSpeed" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Course" Type="int" Nullable="false" />
+          <Property Name="Pressure" Type="int" Nullable="false" />
+          <Property Name="PressureDirId" Type="int" Nullable="false" />
+          <Property Name="WindSpeed" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="WindDirId" Type="int" Nullable="false" />
+          <Property Name="SeaStateId" Type="int" Nullable="false" />
+          <Property Name="CloudCoverId" Type="int" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="255" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="ModifiedDt" Type="datetime" Nullable="false" />
+          <Property Name="CreateDt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Boat_Manufacturer">
+          <End Role="Manufacturer" Type="SailorTravelLogModel.Store.Manufacturer" Multiplicity="1" />
+          <End Role="Boat" Type="SailorTravelLogModel.Store.Boat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Boat">
+              <PropertyRef Name="ManufacturerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_State">
+          <End Role="State" Type="SailorTravelLogModel.Store.State" Multiplicity="1" />
+          <End Role="City" Type="SailorTravelLogModel.Store.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_City">
+          <End Role="City" Type="SailorTravelLogModel.Store.City" Multiplicity="1" />
+          <End Role="Location" Type="SailorTravelLogModel.Store.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_State_Country">
+          <End Role="Country" Type="SailorTravelLogModel.Store.Country" Multiplicity="1" />
+          <End Role="State" Type="SailorTravelLogModel.Store.State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trip_Boat">
+          <End Role="Boat" Type="SailorTravelLogModel.Store.Boat" Multiplicity="1" />
+          <End Role="Trip" Type="SailorTravelLogModel.Store.Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boat">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="BoatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trip_LocationDeparture">
+          <End Role="Location" Type="SailorTravelLogModel.Store.Location" Multiplicity="1" />
+          <End Role="Trip" Type="SailorTravelLogModel.Store.Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="DepartureLocId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trip_LocationDestination">
+          <End Role="Location" Type="SailorTravelLogModel.Store.Location" Multiplicity="1" />
+          <End Role="Trip" Type="SailorTravelLogModel.Store.Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="DestinationLocId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripLog_CloudConditions">
+          <End Role="CloudConditions" Type="SailorTravelLogModel.Store.CloudConditions" Multiplicity="1" />
+          <End Role="TripLog" Type="SailorTravelLogModel.Store.TripLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CloudConditions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripLog">
+              <PropertyRef Name="CloudCoverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripLog_Direction">
+          <End Role="Direction" Type="SailorTravelLogModel.Store.Direction" Multiplicity="1" />
+          <End Role="TripLog" Type="SailorTravelLogModel.Store.TripLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Direction">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripLog">
+              <PropertyRef Name="WindDirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripLog_SeaConditions">
+          <End Role="SeaConditions" Type="SailorTravelLogModel.Store.SeaConditions" Multiplicity="1" />
+          <End Role="TripLog" Type="SailorTravelLogModel.Store.TripLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SeaConditions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripLog">
+              <PropertyRef Name="SeaStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripLog_Trip">
+          <End Role="Trip" Type="SailorTravelLogModel.Store.Trip" Multiplicity="1" />
+          <End Role="TripLog" Type="SailorTravelLogModel.Store.TripLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripLog">
+              <PropertyRef Name="TripId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SailorTravelLogModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="JsonTestContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Boats" EntityType="SailorTravelLogModel.Boat" />
+          <EntitySet Name="Cities" EntityType="SailorTravelLogModel.City" />
+          <EntitySet Name="CloudConditions" EntityType="SailorTravelLogModel.CloudCondition" />
+          <EntitySet Name="Countries" EntityType="SailorTravelLogModel.Country" />
+          <EntitySet Name="Directions" EntityType="SailorTravelLogModel.Direction" />
+          <EntitySet Name="Locations" EntityType="SailorTravelLogModel.Location" />
+          <EntitySet Name="Manufacturers" EntityType="SailorTravelLogModel.Manufacturer" />
+          <EntitySet Name="SeaConditions" EntityType="SailorTravelLogModel.SeaCondition" />
+          <EntitySet Name="States" EntityType="SailorTravelLogModel.State" />
+          <EntitySet Name="Trips" EntityType="SailorTravelLogModel.Trip" />
+          <EntitySet Name="TripLogs" EntityType="SailorTravelLogModel.TripLog" />
+          <AssociationSet Name="FK_Boat_Manufacturer" Association="SailorTravelLogModel.FK_Boat_Manufacturer">
+            <End Role="Manufacturer" EntitySet="Manufacturers" />
+            <End Role="Boat" EntitySet="Boats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trip_Boat" Association="SailorTravelLogModel.FK_Trip_Boat">
+            <End Role="Boat" EntitySet="Boats" />
+            <End Role="Trip" EntitySet="Trips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_State" Association="SailorTravelLogModel.FK_City_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_City" Association="SailorTravelLogModel.FK_Location_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripLog_CloudConditions" Association="SailorTravelLogModel.FK_TripLog_CloudConditions">
+            <End Role="CloudConditions" EntitySet="CloudConditions" />
+            <End Role="TripLog" EntitySet="TripLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_State_Country" Association="SailorTravelLogModel.FK_State_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="State" EntitySet="States" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripLog_Direction" Association="SailorTravelLogModel.FK_TripLog_Direction">
+            <End Role="Direction" EntitySet="Directions" />
+            <End Role="TripLog" EntitySet="TripLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trip_LocationDeparture" Association="SailorTravelLogModel.FK_Trip_LocationDeparture">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Trip" EntitySet="Trips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trip_LocationDestination" Association="SailorTravelLogModel.FK_Trip_LocationDestination">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Trip" EntitySet="Trips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripLog_SeaConditions" Association="SailorTravelLogModel.FK_TripLog_SeaConditions">
+            <End Role="SeaConditions" EntitySet="SeaConditions" />
+            <End Role="TripLog" EntitySet="TripLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripLog_Trip" Association="SailorTravelLogModel.FK_TripLog_Trip">
+            <End Role="Trip" EntitySet="Trips" />
+            <End Role="TripLog" EntitySet="TripLogs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Boat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ManufacturerId" Type="Int32" Nullable="false" />
+          <Property Name="Length" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Nullable="false" />
+          <Property Name="CreateDt" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Manufacturer" Relationship="SailorTravelLogModel.FK_Boat_Manufacturer" FromRole="Boat" ToRole="Manufacturer" />
+          <NavigationProperty Name="Trips" Relationship="SailorTravelLogModel.FK_Trip_Boat" FromRole="Boat" ToRole="Trip" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="State" Relationship="SailorTravelLogModel.FK_City_State" FromRole="City" ToRole="State" />
+          <NavigationProperty Name="Locations" Relationship="SailorTravelLogModel.FK_Location_City" FromRole="City" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="CloudCondition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="TripLogs" Relationship="SailorTravelLogModel.FK_TripLog_CloudConditions" FromRole="CloudConditions" ToRole="TripLog" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="States" Relationship="SailorTravelLogModel.FK_State_Country" FromRole="Country" ToRole="State" />
+        </EntityType>
+        <EntityType Name="Direction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="3" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="TripLogs" Relationship="SailorTravelLogModel.FK_TripLog_Direction" FromRole="Direction" ToRole="TripLog" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Latitude" Type="Decimal" Nullable="false" Precision="18" Scale="7" />
+          <Property Name="Longitude" Type="Decimal" Nullable="false" Precision="18" Scale="7" />
+          <Property Name="Street1" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Street2" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <Property Name="ZipCode" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="PhoneNbr" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Nullable="false" />
+          <Property Name="CreateDt" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="SailorTravelLogModel.FK_Location_City" FromRole="Location" ToRole="City" />
+          <NavigationProperty Name="Trips" Relationship="SailorTravelLogModel.FK_Trip_LocationDeparture" FromRole="Location" ToRole="Trip" />
+          <NavigationProperty Name="Trips1" Relationship="SailorTravelLogModel.FK_Trip_LocationDestination" FromRole="Location" ToRole="Trip" />
+        </EntityType>
+        <EntityType Name="Manufacturer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Boats" Relationship="SailorTravelLogModel.FK_Boat_Manufacturer" FromRole="Manufacturer" ToRole="Boat" />
+        </EntityType>
+        <EntityType Name="SeaCondition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="TripLogs" Relationship="SailorTravelLogModel.FK_TripLog_SeaConditions" FromRole="SeaConditions" ToRole="TripLog" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Cities" Relationship="SailorTravelLogModel.FK_City_State" FromRole="State" ToRole="City" />
+          <NavigationProperty Name="Country" Relationship="SailorTravelLogModel.FK_State_Country" FromRole="State" ToRole="Country" />
+        </EntityType>
+        <EntityType Name="Trip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="BoatId" Type="Int32" Nullable="false" />
+          <Property Name="DepartureLocId" Type="Int32" Nullable="false" />
+          <Property Name="DepartureDt" Type="DateTime" Nullable="false" />
+          <Property Name="DestinationLocId" Type="Int32" Nullable="false" />
+          <Property Name="ArrivalDt" Type="DateTime" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Nullable="false" />
+          <Property Name="CreateDt" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Boat" Relationship="SailorTravelLogModel.FK_Trip_Boat" FromRole="Trip" ToRole="Boat" />
+          <NavigationProperty Name="Location" Relationship="SailorTravelLogModel.FK_Trip_LocationDeparture" FromRole="Trip" ToRole="Location" />
+          <NavigationProperty Name="Location1" Relationship="SailorTravelLogModel.FK_Trip_LocationDestination" FromRole="Trip" ToRole="Location" />
+          <NavigationProperty Name="TripLogs" Relationship="SailorTravelLogModel.FK_TripLog_Trip" FromRole="Trip" ToRole="TripLog" />
+        </EntityType>
+        <EntityType Name="TripLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TripId" Type="Int32" Nullable="false" />
+          <Property Name="LogDt" Type="DateTime" Nullable="false" />
+          <Property Name="Latitude" Type="Decimal" Nullable="false" Precision="18" Scale="7" />
+          <Property Name="Longitude" Type="Decimal" Nullable="false" Precision="18" Scale="7" />
+          <Property Name="BoatSpeed" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Course" Type="Int32" Nullable="false" />
+          <Property Name="Pressure" Type="Int32" Nullable="false" />
+          <Property Name="PressureDirId" Type="Int32" Nullable="false" />
+          <Property Name="WindSpeed" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="WindDirId" Type="Int32" Nullable="false" />
+          <Property Name="SeaStateId" Type="Int32" Nullable="false" />
+          <Property Name="CloudCoverId" Type="Int32" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Nullable="false" />
+          <Property Name="CreateDt" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="CloudCondition" Relationship="SailorTravelLogModel.FK_TripLog_CloudConditions" FromRole="TripLog" ToRole="CloudConditions" />
+          <NavigationProperty Name="Direction" Relationship="SailorTravelLogModel.FK_TripLog_Direction" FromRole="TripLog" ToRole="Direction" />
+          <NavigationProperty Name="SeaCondition" Relationship="SailorTravelLogModel.FK_TripLog_SeaConditions" FromRole="TripLog" ToRole="SeaConditions" />
+          <NavigationProperty Name="Trip" Relationship="SailorTravelLogModel.FK_TripLog_Trip" FromRole="TripLog" ToRole="Trip" />
+        </EntityType>
+        <Association Name="FK_Boat_Manufacturer">
+          <End Role="Manufacturer" Type="SailorTravelLogModel.Manufacturer" Multiplicity="1" />
+          <End Role="Boat" Type="SailorTravelLogModel.Boat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Boat">
+              <PropertyRef Name="ManufacturerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trip_Boat">
+          <End Role="Boat" Type="SailorTravelLogModel.Boat" Multiplicity="1" />
+          <End Role="Trip" Type="SailorTravelLogModel.Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boat">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="BoatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_State">
+          <End Role="State" Type="SailorTravelLogModel.State" Multiplicity="1" />
+          <End Role="City" Type="SailorTravelLogModel.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_City">
+          <End Role="City" Type="SailorTravelLogModel.City" Multiplicity="1" />
+          <End Role="Location" Type="SailorTravelLogModel.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripLog_CloudConditions">
+          <End Role="CloudConditions" Type="SailorTravelLogModel.CloudCondition" Multiplicity="1" />
+          <End Role="TripLog" Type="SailorTravelLogModel.TripLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CloudConditions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripLog">
+              <PropertyRef Name="CloudCoverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_State_Country">
+          <End Role="Country" Type="SailorTravelLogModel.Country" Multiplicity="1" />
+          <End Role="State" Type="SailorTravelLogModel.State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripLog_Direction">
+          <End Role="Direction" Type="SailorTravelLogModel.Direction" Multiplicity="1" />
+          <End Role="TripLog" Type="SailorTravelLogModel.TripLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Direction">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripLog">
+              <PropertyRef Name="WindDirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trip_LocationDeparture">
+          <End Role="Location" Type="SailorTravelLogModel.Location" Multiplicity="1" />
+          <End Role="Trip" Type="SailorTravelLogModel.Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="DepartureLocId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trip_LocationDestination">
+          <End Role="Location" Type="SailorTravelLogModel.Location" Multiplicity="1" />
+          <End Role="Trip" Type="SailorTravelLogModel.Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="DestinationLocId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripLog_SeaConditions">
+          <End Role="SeaConditions" Type="SailorTravelLogModel.SeaCondition" Multiplicity="1" />
+          <End Role="TripLog" Type="SailorTravelLogModel.TripLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SeaConditions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripLog">
+              <PropertyRef Name="SeaStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripLog_Trip">
+          <End Role="Trip" Type="SailorTravelLogModel.Trip" Multiplicity="1" />
+          <End Role="TripLog" Type="SailorTravelLogModel.TripLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripLog">
+              <PropertyRef Name="TripId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SailorTravelLogModelStoreContainer" CdmEntityContainer="JsonTestContext">
+          <EntitySetMapping Name="Boats"><EntityTypeMapping TypeName="SailorTravelLogModel.Boat"><MappingFragment StoreEntitySet="Boat">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="ManufacturerId" ColumnName="ManufacturerId" />
+            <ScalarProperty Name="Length" ColumnName="Length" />
+            <ScalarProperty Name="Active" ColumnName="Active" />
+            <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+            <ScalarProperty Name="CreateDt" ColumnName="CreateDt" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Cities"><EntityTypeMapping TypeName="SailorTravelLogModel.City"><MappingFragment StoreEntitySet="City">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="StateId" ColumnName="StateId" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="CloudConditions"><EntityTypeMapping TypeName="SailorTravelLogModel.CloudCondition"><MappingFragment StoreEntitySet="CloudConditions">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Countries"><EntityTypeMapping TypeName="SailorTravelLogModel.Country"><MappingFragment StoreEntitySet="Country">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Directions"><EntityTypeMapping TypeName="SailorTravelLogModel.Direction"><MappingFragment StoreEntitySet="Direction">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Locations"><EntityTypeMapping TypeName="SailorTravelLogModel.Location"><MappingFragment StoreEntitySet="Location">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+            <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+            <ScalarProperty Name="Street1" ColumnName="Street1" />
+            <ScalarProperty Name="Street2" ColumnName="Street2" />
+            <ScalarProperty Name="CityId" ColumnName="CityId" />
+            <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+            <ScalarProperty Name="PhoneNbr" ColumnName="PhoneNbr" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="Active" ColumnName="Active" />
+            <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+            <ScalarProperty Name="CreateDt" ColumnName="CreateDt" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Manufacturers"><EntityTypeMapping TypeName="SailorTravelLogModel.Manufacturer"><MappingFragment StoreEntitySet="Manufacturer">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="SeaConditions"><EntityTypeMapping TypeName="SailorTravelLogModel.SeaCondition"><MappingFragment StoreEntitySet="SeaConditions">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="States"><EntityTypeMapping TypeName="SailorTravelLogModel.State"><MappingFragment StoreEntitySet="State">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Trips"><EntityTypeMapping TypeName="SailorTravelLogModel.Trip"><MappingFragment StoreEntitySet="Trip">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="BoatId" ColumnName="BoatId" />
+            <ScalarProperty Name="DepartureLocId" ColumnName="DepartureLocId" />
+            <ScalarProperty Name="DepartureDt" ColumnName="DepartureDt" />
+            <ScalarProperty Name="DestinationLocId" ColumnName="DestinationLocId" />
+            <ScalarProperty Name="ArrivalDt" ColumnName="ArrivalDt" />
+            <ScalarProperty Name="Active" ColumnName="Active" />
+            <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+            <ScalarProperty Name="CreateDt" ColumnName="CreateDt" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="TripLogs"><EntityTypeMapping TypeName="SailorTravelLogModel.TripLog"><MappingFragment StoreEntitySet="TripLog">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="TripId" ColumnName="TripId" />
+            <ScalarProperty Name="LogDt" ColumnName="LogDt" />
+            <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+            <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+            <ScalarProperty Name="BoatSpeed" ColumnName="BoatSpeed" />
+            <ScalarProperty Name="Course" ColumnName="Course" />
+            <ScalarProperty Name="Pressure" ColumnName="Pressure" />
+            <ScalarProperty Name="PressureDirId" ColumnName="PressureDirId" />
+            <ScalarProperty Name="WindSpeed" ColumnName="WindSpeed" />
+            <ScalarProperty Name="WindDirId" ColumnName="WindDirId" />
+            <ScalarProperty Name="SeaStateId" ColumnName="SeaStateId" />
+            <ScalarProperty Name="CloudCoverId" ColumnName="CloudCoverId" />
+            <ScalarProperty Name="Comments" ColumnName="Comments" />
+            <ScalarProperty Name="Active" ColumnName="Active" />
+            <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+            <ScalarProperty Name="CreateDt" ColumnName="CreateDt" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model">
+        <EntityTypeShape EntityType="SailorTravelLogModel.Boat" Width="1.5" PointX="4.875" PointY="4.75" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SailorTravelLogModel.City" Width="1.5" PointX="9.75" PointY="0.75" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="SailorTravelLogModel.CloudCondition" Width="1.5" PointX="2.375" PointY="3.125" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SailorTravelLogModel.Country" Width="1.5" PointX="11.875" PointY="5.375" Height="1.5956835937499991" IsExpanded="true" />
+        <EntityTypeShape EntityType="SailorTravelLogModel.Direction" Width="1.5" PointX="2.375" PointY="7.125" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SailorTravelLogModel.Location" Width="1.5" PointX="7" PointY="0.625" Height="4.0956022135416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SailorTravelLogModel.Manufacturer" Width="1.5" PointX="7" PointY="6.25" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SailorTravelLogModel.SeaCondition" Width="1.5" PointX="2.375" PointY="5.25" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SailorTravelLogModel.State" Width="1.5" PointX="10.75" PointY="3" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="SailorTravelLogModel.Trip" Width="1.5" PointX="4.75" PointY="0.5" Height="3.7109993489583353" IsExpanded="true" />
+        <EntityTypeShape EntityType="SailorTravelLogModel.TripLog" Width="1.5" PointX="0.5" PointY="0.5" Height="5.0571093750000031" IsExpanded="true" />
+        <AssociationConnector Association="SailorTravelLogModel.FK_Boat_Manufacturer" ManuallyRouted="false">
+          <ConnectorPoint PointX="7" PointY="6.87474609375" />
+          <ConnectorPoint PointX="6.375" PointY="6.87474609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="SailorTravelLogModel.FK_Trip_Boat" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.5625" PointY="4.75" />
+          <ConnectorPoint PointX="5.5625" PointY="4.2109993489583353" />
+        </AssociationConnector>
+        <AssociationConnector Association="SailorTravelLogModel.FK_City_State" ManuallyRouted="false">
+          <ConnectorPoint PointX="11" PointY="3" />
+          <ConnectorPoint PointX="11" PointY="2.7302864583333335" />
+        </AssociationConnector>
+        <AssociationConnector Association="SailorTravelLogModel.FK_Location_City" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.75" PointY="1.7401432291666668" />
+          <ConnectorPoint PointX="8.5" PointY="1.7401432291666668" />
+        </AssociationConnector>
+        <AssociationConnector Association="SailorTravelLogModel.FK_TripLog_CloudConditions" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.375" PointY="3.922841796875" />
+          <ConnectorPoint PointX="2" PointY="3.922841796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="SailorTravelLogModel.FK_State_Country" ManuallyRouted="false">
+          <ConnectorPoint PointX="12.0625" PointY="5.375" />
+          <ConnectorPoint PointX="12.0625" PointY="4.9802864583333317" />
+        </AssociationConnector>
+        <AssociationConnector Association="SailorTravelLogModel.FK_TripLog_Direction" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.375" PointY="7.922841796875" />
+          <ConnectorPoint PointX="1.25" PointY="7.922841796875" />
+          <ConnectorPoint PointX="1.25" PointY="5.5571093750000031" />
+        </AssociationConnector>
+        <AssociationConnector Association="SailorTravelLogModel.FK_Trip_LocationDeparture" ManuallyRouted="false">
+          <ConnectorPoint PointX="7" PointY="2.4179996744791676" />
+          <ConnectorPoint PointX="6.25" PointY="2.4179996744791676" />
+        </AssociationConnector>
+        <AssociationConnector Association="SailorTravelLogModel.FK_Trip_LocationDestination" ManuallyRouted="false">
+          <ConnectorPoint PointX="7" PointY="1.4589998372395838" />
+          <ConnectorPoint PointX="6.25" PointY="1.4589998372395838" />
+        </AssociationConnector>
+        <AssociationConnector Association="SailorTravelLogModel.FK_TripLog_SeaConditions" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.375" PointY="5.4035546875000016" />
+          <ConnectorPoint PointX="2" PointY="5.4035546875000016" />
+        </AssociationConnector>
+        <AssociationConnector Association="SailorTravelLogModel.FK_TripLog_Trip" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.75" PointY="2.3554996744791676" />
+          <ConnectorPoint PointX="2" PointY="2.3554996744791676" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
